@@ -4,7 +4,27 @@ import './App.css';
 import UserOutput from './UserOutput/UserOutput';
 
 class App extends Component {
+  state = {
+    users: [
+      {
+        username: "Marina"
+      },
+      {
+        username: "Luiz"
+      },
+      {
+        username: "Vinicius"
+      }
+    ]
+  }
+
   render() {
+    const users = this.state.users.map((u) => {
+      return (
+        <UserOutput username={u.username} />
+      );
+    });
+
     return (
       <div className="App">
         <ol>
@@ -20,9 +40,7 @@ class App extends Component {
           <li>Add styling of your choice to your components/ elements in the components - both with inline styles and stylesheets</li>
         </ol>
 
-        <UserOutput username="Marina" />
-        <UserOutput username="Luiz" />
-        <UserOutput username="Vinicius" />
+        {users}
       </div>
     );
   }
