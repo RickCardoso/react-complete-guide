@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import UserOutput from './UserOutput/UserOutput';
+import UserInput from './UserInput/UserInput';
 
 class App extends Component {
   state = {
@@ -18,14 +19,20 @@ class App extends Component {
     ]
   }
 
-  changeUsername = () => {
+  handleChangeUsername = (index, event) => {
+    let newState = {...this.state};
+    newState.users[index].username = event.target.value;
 
+    this.setState(newState);
   }
 
   render() {
-    const users = this.state.users.map((u) => {
+    const users = this.state.users.map((u, index) => {
       return (
-        <UserOutput username={u.username} />
+        <div key={index}>
+          <UserInput value={u.username} change={this.handleChangeUsername.bind(this, index)} />
+          <UserOutput username={u.username} />
+        </div>
       );
     });
 
