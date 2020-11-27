@@ -18,6 +18,10 @@ class App extends Component {
     ]
   }
 
+  changeUsername = () => {
+
+  }
+
   render() {
     const users = this.state.users.map((u) => {
       return (
