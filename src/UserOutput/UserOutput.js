@@ -1,12 +1,12 @@
-const { div } = require("prelude-ls")
+import React from 'react';
 
 const userOutput = () => {
   return (
     <div>
-      <p></p>
-      <p></p>
+      <p>a text</p>
+      <p>another</p>
     </div>
-  )
+  );
 }
 
 export default userOutput;
