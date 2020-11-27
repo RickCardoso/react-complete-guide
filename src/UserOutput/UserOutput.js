@@ -1,9 +1,10 @@
+import { props } from 'bluebird';
 import React from 'react';
 
-const userOutput = () => {
+const userOutput = (props) => {
   return (
     <div>
-      <p>a text</p>
+      <p>{props.username}</p>
       <p>another</p>
     </div>
   );
