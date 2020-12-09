@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import ValidationComponent from './ValidationComponent/ValidationComponent'
+import CharComponent from './CharComponent/CharComponent'
 
 class App extends Component {
   state = {
@@ -14,7 +15,25 @@ class App extends Component {
     });
   }
 
+  handleCharClick (index) {
+    const currentText = this.state.text.split('');
+
+    currentText.splice(index, 1);
+
+    this.setState({
+      text: currentText.join('')
+    });
+  }
+
   render() {
+    const chars = this.state.text.split('').map((char, index) => {
+      return <CharComponent
+        char={char}
+        onClick={this.handleCharClick.bind(this, index)}
+        key={index}
+      />
+    });
+
     return (
       <div>
         <div className="App">
@@ -32,6 +51,10 @@ class App extends Component {
           <input type="text" value={this.state.text} onChange={this.handleChange.bind(this)} />
           <p>{this.state.text}</p>
           <ValidationComponent text={this.state.text} />
+
+          <div className="Chars-content">
+            {chars}
+          </div>
         </div>
       </div>
     );
