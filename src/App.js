@@ -7,58 +7,62 @@ class App extends Component {
   state = {
     people: [
       {
+        id: 'rid1231',
         name: 'Carol',
         age: 47,
         hobbies: 'play volleyball'
       },
       {
+        id: 'rid1232',
         name: "Matt",
         age: 19
       },
       {
+        id: 'rid1233',
         name: "Yuri",
         age: 91
       }
-    ]
-  }
+    ],
+    showPeople: false,
+  };
 
-  switchNameHandler = (newName) => {
+  deletePersonHandler = (index) => {
+    const currentPeople = [...this.state.people];
+    currentPeople.splice(index, 1);
+
     this.setState({
-      ...this.state,
-      people: [
-        {
-          name: newName,
-          age: 49,
-          hobbies: 'play volleyball on the beach'
-        }
-      ]
+      people: currentPeople
     });
   }
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = (event, id) => {
+    const currentPeople = [...this.state.people];
+    const person = currentPeople.find((p) => p.id === id);
+
+    if (!person) return null;
+
+    person.name = event.target.value;
+
     this.setState({
-      ...this.state,
-      people: [
-        {
-          name: event.target.value,
-          age: 49,
-          hobbies: 'play volleyball on the beach'
-        }
-      ]
+      people: currentPeople
     });
+  }
+
+  togglePeopleHandler = () => {
+    this.setState({ showPeople: !this.state.showPeople })
   }
 
   render () {
-    const peopleComponents = this.state.people.map((p, index) => {
+    const peopleComponents = this.state.showPeople && this.state.people.map((p, index) => {
       let hobbies = '';
       if (!!p.hobbies) hobbies = `My hobbies are: ${p.hobbies}!`;
       return (
         <Person
-          click={this.switchNameHandler.bind(this, 'Anna')}
-          change={this.nameChangeHandler}
+          click={this.deletePersonHandler.bind(this, index)}
+          change={(event) => this.nameChangeHandler(event, p.id)}
           name={p.name}
           age={p.age}
-          key={index}>
+          key={p.id}>
           {hobbies}
         </Person>
       );
@@ -68,7 +72,7 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button onClick={this.switchNameHandler.bind(this, 'Anna')}>Switch name</button>
+        <button onClick={this.togglePeopleHandler}>Toggle</button>
         {peopleComponents}
       </div>
     );
