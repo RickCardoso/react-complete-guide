@@ -1,7 +1,8 @@
 import React, { Component } from 'react'; 
 
-import './App.css';
-import Person from './Person/Person';
+import 'App.css';
+import { PersonList } from 'components/PersonList';
+import { Cockpit } from 'components/Cockpit';
 
 class App extends Component {
   state = {
@@ -53,27 +54,15 @@ class App extends Component {
   }
 
   render () {
-    const peopleComponents = this.state.showPeople && this.state.people.map((p, index) => {
-      let hobbies = '';
-      if (!!p.hobbies) hobbies = `My hobbies are: ${p.hobbies}!`;
-      return (
-        <Person
-          click={this.deletePersonHandler.bind(this, index)}
-          change={(event) => this.nameChangeHandler(event, p.id)}
-          name={p.name}
-          age={p.age}
-          key={p.id}>
-          {hobbies}
-        </Person>
-      );
-    });
-
     return (
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button onClick={this.togglePeopleHandler}>Toggle</button>
-        {peopleComponents}
+        <Cockpit
+          togglePeople={this.togglePeopleHandler} />
+        {this.state.showPeople && <PersonList
+          people={this.state.people}
+          changeName={this.nameChangeHandler}
+          deletePerson={this.deletePersonHandler}
+        /> }
       </div>
     );
   }
