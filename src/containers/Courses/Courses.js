@@ -21,7 +21,7 @@ class Courses extends Component {
                     {
                         this.state.courses.map( course => {
                             return <Link
-                              to={`${this.props.match.url}/${course.id}`}
+                              to={`${this.props.match.url}/${course.id}/${course.title}`}
                               className="Course"
                               key={course.id}
                             >
@@ -32,7 +32,7 @@ class Courses extends Component {
                 </section>
 
                 <section classeName="LoadedCourse">
-                  <Route exact path="/courses/:id" component={Course} />
+                  <Route exact path="/courses/:id/:title" component={Course} />
                 </section>
             </div>
         );
