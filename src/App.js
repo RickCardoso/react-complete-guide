@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Link, Redirect } from 'react-router-dom';
 
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
+import Error404 from './containers/Errors/404';
 
 class App extends Component {
   render () {
@@ -36,6 +37,9 @@ class App extends Component {
           <Switch>
             <Route path="/courses" component={Courses} />
             <Route exact path="/users" component={Users} />
+            <Redirect exact path="/all-courses" to="/courses" />
+            <Redirect exact path="/" to="/courses" />
+            <Route path="/" component={Error404} />
           </Switch>
         </div>
       </Router>
